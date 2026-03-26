@@ -2215,10 +2215,10 @@ src="https://www.facebook.com/tr?id=777585291568591&ev=PageView&noscript=1"
       <p>Enter your details and our team will start building your store right away.</p>
     </div>
     <div class="form-grid">
-      <input type="text" class="form-input" placeholder="First name" required>
-      <input type="email" class="form-input" placeholder="Email address" required>
-      <input type="tel" class="form-input" placeholder="Phone number" required>
-      <a href="#" class="btn-primary btn-large form-submit" onclick="event.preventDefault(); window.location.href='https://start.ecomwebsites.com/setup';">
+      <input type="text" id="form-firstname" class="form-input" placeholder="First name" required>
+      <input type="email" id="form-email" class="form-input" placeholder="Email address" required>
+      <input type="tel" id="form-phone" class="form-input" placeholder="Phone number" required>
+      <a href="#" class="btn-primary btn-large form-submit" id="form-submit-btn" onclick="handleFormSubmit(event)">
         Start My Free Store
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
       </a>
@@ -2361,6 +2361,43 @@ function closeModal() {
 document.getElementById('signupModal').addEventListener('click', function(e) {
   if (e.target === this) closeModal();
 });
+// Handle form submission — send to AC then redirect
+async function handleFormSubmit(event) {
+  event.preventDefault();
+
+  const firstName = document.getElementById('form-firstname').value.trim();
+  const email = document.getElementById('form-email').value.trim();
+  const phone = document.getElementById('form-phone').value.trim();
+  const btn = document.getElementById('form-submit-btn');
+
+  if (!firstName || !email || !phone) {
+    alert('Please fill in all fields.');
+    return;
+  }
+
+  // Disable button to prevent double submit
+  btn.style.opacity = '0.7';
+  btn.style.pointerEvents = 'none';
+
+  try {
+    // Fire Facebook Lead event
+    if (typeof fbq !== 'undefined') fbq('track', 'Lead');
+
+    // Submit to ActiveCampaign via serverless function
+    await fetch('/api/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ firstName, email, phone }),
+    });
+  } catch (e) {
+    // Silently fail — still redirect even if AC call fails
+    console.error('Subscription error:', e);
+  }
+
+  // Redirect to setup page
+  window.location.href = 'https://start.ecomwebsites.com/setup';
+}
+
 // Close on Escape key
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') closeModal();
