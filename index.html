@@ -137,6 +137,57 @@ input { font-family: inherit; }
 .btn-primary:active { transform: translateY(0); }
 .btn-large { padding: 14px 32px; font-size: 16px; }
 .btn-xlarge { padding: 16px 40px; font-size: 17px; }
+
+/* ── Hero CTA — stands out from all other buttons ── */
+.btn-hero {
+  padding: 18px 40px;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  background: linear-gradient(135deg, #0B5FFF 0%, #2563EB 50%, #1D4ED8 100%);
+  box-shadow:
+    0 0 0 3px rgba(37,99,235,0.18),
+    0 4px 6px rgba(11,95,255,0.25),
+    0 12px 32px rgba(11,95,255,0.35),
+    0 24px 48px rgba(11,95,255,0.15);
+  border-radius: 50px;
+  animation: hero-pulse 2.8s ease-in-out infinite;
+  position: relative;
+  overflow: hidden;
+}
+.btn-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.18) 0%, transparent 60%);
+  border-radius: inherit;
+  pointer-events: none;
+}
+.btn-hero:hover {
+  background: linear-gradient(135deg, #1D4ED8 0%, #1E40AF 100%);
+  box-shadow:
+    0 0 0 4px rgba(37,99,235,0.25),
+    0 8px 16px rgba(11,95,255,0.3),
+    0 20px 48px rgba(11,95,255,0.4),
+    0 32px 64px rgba(11,95,255,0.18);
+  transform: translateY(-2px) scale(1.02);
+}
+@keyframes hero-pulse {
+  0%, 100% {
+    box-shadow:
+      0 0 0 3px rgba(37,99,235,0.18),
+      0 4px 6px rgba(11,95,255,0.25),
+      0 12px 32px rgba(11,95,255,0.35),
+      0 24px 48px rgba(11,95,255,0.15);
+  }
+  50% {
+    box-shadow:
+      0 0 0 6px rgba(37,99,235,0.12),
+      0 4px 6px rgba(11,95,255,0.2),
+      0 16px 40px rgba(11,95,255,0.45),
+      0 28px 56px rgba(11,95,255,0.22);
+  }
+}
 .mobile-cta { display: none; padding: 10px 20px; font-size: 14px; }
 
 /* ═══════════════════════════════════════════
@@ -1475,9 +1526,8 @@ src="https://www.facebook.com/tr?id=777585291568591&ev=PageView&noscript=1"
       <!-- Desktop CTA (hidden on mobile) -->
       <div class="hero-cta-desktop">
         <div class="hero-cta-row">
-          <a href="#" onclick="openModal(); return false;" class="btn-primary btn-large">
-            Get My Free Store
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          <a href="#" onclick="openModal(); return false;" class="btn-primary btn-hero">
+            Get My Free Store →
           </a>
         </div>
         <p class="hero-no-cc">
@@ -1493,9 +1543,8 @@ src="https://www.facebook.com/tr?id=777585291568591&ev=PageView&noscript=1"
     <!-- Mobile CTA (shown below image on mobile) -->
     <div class="hero-cta-mobile">
       <div class="hero-cta-row">
-        <a href="#" onclick="openModal(); return false;" class="btn-primary btn-large">
-          Get My Free Store
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        <a href="#" onclick="openModal(); return false;" class="btn-primary btn-hero">
+          Get My Free Store →
         </a>
       </div>
       <p class="hero-no-cc">
