@@ -2420,7 +2420,7 @@ async function handleFormSubmit(event) {
   const phone = document.getElementById('form-phone').value.trim();
   const btn = document.getElementById('form-submit-btn');
 
-  if (!firstName || !email || !phone) {
+  if (!firstName || !email) {
     alert('Please fill in all fields.');
     return;
   }
