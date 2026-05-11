@@ -1,6 +1,13 @@
 {
   "cleanUrls": true,
+  "redirects": [
+    {
+      "source": "/brands",
+      "destination": "https://get.ecomwebsites.com/start",
+      "permanent": true
+    }
+  ],
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/$1" }
+    { "source": "/api/(.* )", "destination": "/api/$1" }
   ]
 }
